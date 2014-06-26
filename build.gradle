@@ -17,12 +17,16 @@ repositories {
     // Use 'maven central' for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     mavenCentral()
+	maven {
+		url "https://oss.sonatype.org/content/groups/public"
+	}
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use the latest groovy 2.x version for building this library
     compile 'org.codehaus.groovy:groovy:2.3.3'
+	compile "org.functionaljava:functionaljava:4.2-SNAPSHOT"
 
     // We use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
