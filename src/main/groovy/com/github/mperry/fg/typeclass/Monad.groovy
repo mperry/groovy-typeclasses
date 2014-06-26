@@ -55,9 +55,9 @@ trait Monad<M> extends Applicative<M> {
 	 * Returns a function representing unit
 	 */
 	def <B> F<B, M<B>> unit() {
-		def t = this;
+		def current = this;
 		{ B b ->
-			t.unit(b)
+			current.unit(b)
 		} as F
 	}
 
@@ -71,15 +71,15 @@ trait Monad<M> extends Applicative<M> {
 	}
 
 	def <A, B> M<B> map(M<A> ma, F<A, B> f) {
-		def t = this;
+		def current = this;
 		flatMap(ma, { A a ->
-			t.unit(f.f(a))
+			current.unit(f.f(a))
 		} as F)
 	}
 
 	def <A, B, C> M<C> map2(M<A> ma, M<B> mb, F2<A, B, C> f) {
-		def t = this;
-		flatMap(ma, { A a -> t.map(mb, { B b -> f.f(a, b)} as F)} as F)
+		def current = this;
+		flatMap(ma, { A a -> current.map(mb, { B b -> f.f(a, b)} as F)} as F)
 	}
 
 	def <A, B> M<B> to(M<A> ma, B b) {
